@@ -1,17 +1,13 @@
 import type { CollectionConfig } from 'payload'
-
 import {
-  BlocksFeature,
   FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
   lexicalEditor,
+  defaultColors,
+  TextStateFeature, BlocksFeature,
 } from '@payloadcms/richtext-lexical'
+import { ClientBlock } from '@/blocks/ClientBlock/config'
 
-import { ContentWithMedia } from '@/blocks/ContentWithMedia/config'
-
-export const Posts: CollectionConfig<'posts'> = {
+export const Posts: CollectionConfig = {
   slug: 'posts',
   access: {
     read: () => true,
@@ -19,9 +15,6 @@ export const Posts: CollectionConfig<'posts'> = {
     delete: () => true,
     update: () => true,
   },
-  // This config controls what's populated by default when a post is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
   defaultPopulate: {
     title: true,
   },
@@ -36,6 +29,10 @@ export const Posts: CollectionConfig<'posts'> = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -44,14 +41,22 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
+                features: ({ rootFeatures, defaultFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [ContentWithMedia] }),
+                    ...defaultFeatures,
                     FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
+                    BlocksFeature({
+                      blocks: [ClientBlock]
+                    }),
+                    TextStateFeature({
+                      state: {
+                        color: {
+                          ...defaultColors.text,
+                          ...defaultColors.background,
+                        }
+                      }
+                    })
                   ]
                 },
               }),
