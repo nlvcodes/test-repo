@@ -47,16 +47,24 @@ export const Posts: CollectionConfig = {
                     ...defaultFeatures,
                     FixedToolbarFeature(),
                     BlocksFeature({
-                      blocks: [ClientBlock]
+                      blocks: [ClientBlock],
                     }),
                     TextStateFeature({
                       state: {
                         color: {
                           ...defaultColors.text,
                           ...defaultColors.background,
-                        }
-                      }
-                    })
+                        },
+                        // underline: {
+                        //   'dashed': {
+                        //     label: 'Dashed',
+                        //     css: {
+                        //       'text-decoration': 'underline dashed',
+                        //     },
+                        //   },
+                        // },
+                      },
+                    }),
                   ]
                 },
               }),
