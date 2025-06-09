@@ -1,4 +1,4 @@
-import type {Block} from 'payload'
+import type { Block } from 'payload'
 import { lexicalEditor, defaultColors, TextStateFeature } from '@payloadcms/richtext-lexical'
 
 export const ClientBlock: Block = {
@@ -9,7 +9,7 @@ export const ClientBlock: Block = {
       type: 'richText',
       name: 'content',
       editor: lexicalEditor({
-        features: ({defaultFeatures, rootFeatures}) => [
+        features: ({ defaultFeatures, rootFeatures }) => [
           ...defaultFeatures,
           ...rootFeatures,
           TextStateFeature({
@@ -17,11 +17,19 @@ export const ClientBlock: Block = {
               color: {
                 ...defaultColors.text,
                 ...defaultColors.background,
-              }
-            }
-          })
-        ]
-      })
-    }
-  ]
+              },
+              underline: {
+                'dashed': {
+                  label: 'Dashed',
+                  css: {
+                    'text-decoration': 'underline dashed',
+                  },
+                },
+              },
+            },
+          }),
+        ],
+      }),
+    },
+  ],
 }

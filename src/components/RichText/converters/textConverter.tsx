@@ -2,7 +2,7 @@ import {JSXConverters} from "@payloadcms/richtext-lexical/react";
 import {SerializedTextNode} from "@payloadcms/richtext-lexical";
 import React from "react";
 
-import {defaultColors} from '@payloadcms/richtext-lexical'
+import {defaultColors} from '@payloadcms/richtext-lexical/client'
 import type {
   StateValues,
   TextStateFeatureProps,
@@ -12,6 +12,14 @@ export const colorState: TextStateFeatureProps["state"] = {
   color: {
     ...defaultColors.text,
     ...defaultColors.background,
+  },
+  underline: {
+    'dashed': {
+      label: 'Dashed',
+      css: {
+        'text-decoration': 'underline dashed'
+      }
+    }
   }
 }
 
